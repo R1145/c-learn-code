@@ -9,5 +9,5 @@ int main()
     printf("这个数为偶数\n");
     else
     printf("这个数为奇数\n");
-    return 0；
+    return 0;
 }
