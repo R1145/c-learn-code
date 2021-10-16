@@ -1,0 +1,36 @@
+二次方程求解
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    double a,b,c,detal,i;//detal为判别式
+    printf("请输入二次方程的各项系数：");
+    scanf("%lf%lf%lf",&a,&b,&c);
+    detal=b*b-4*a*c;
+    i=sqrt(detal);
+    if(fabs(a)<=1e-6)
+    {
+        printf("这不是一个二次方程\n");
+        return 0;
+    }
+    if(detal<=1e-6&&detal>=-1e-6)
+    {
+        double u=-b/(2*a);
+        printf("这个方程有两个相同解：x1=x2=%8.4f\n",u);
+    }
+    else if(detal>1e-6)
+    {
+        double x1,x2;
+        x1=(-b+i)/(2*a);
+        x2=(-b-i)/(2*a);
+        printf("此方程有两个不同解：\nx1=%8.4f     x2=%8.4f\n",x1,x2);
+    }
+    else
+    {
+        double realpart,imagpart;
+        realpart=-b/(2*a);
+        imagpart=sqrt(-detal)/(2*a);
+        printf("此方程有两个复数解：\nx1=%8.4f+%8.4fi     x2=%8.4f-%8.4fi\n",realpart,imagpart,realpart,imagpart);
+    }
+    return 0;
+}
