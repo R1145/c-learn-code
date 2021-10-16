@@ -1,0 +1,23 @@
+求平方根
+（1000以内，整数）
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int a,b;
+	printf("请输入一个数字:");
+	scanf("%d",&a);
+	if(a<=0||a>=1000)
+	{
+		printf("数字不合法，请重新输入:");
+		scanf("%d",&a);
+		if(a<=0||a>=1000)
+		{
+			printf("无法输出结果\n");
+			return 0;
+		}
+	}
+	b=sqrt(a);
+	printf("平方根为%d\n",b);
+	return 0;
+}
