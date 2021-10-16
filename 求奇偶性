@@ -1,0 +1,13 @@
+判断数字奇偶性
+#include<stdio.h>
+int main()
+{
+    int a;
+    printf("请输入一个数字:");
+    scanf("%d",&a);
+    if(a%2==0)
+    printf("这个数为偶数\n");
+    else
+    printf("这个数为奇数\n");
+    return 0；
+}
