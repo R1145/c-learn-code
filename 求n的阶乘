@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+    int n=0;
+    long long int a=1;
+    printf("请输入一个数字：>");
+    scanf("%d",&n);
+    if(n<1)
+    printf("输入错误，该数字没有阶乘\n");
+    while(n!=1)
+    {
+        a=a*n;
+        n--;
+    }
+    printf("输入的数字阶乘为%lld\n",a);
+    return 0;
+}
