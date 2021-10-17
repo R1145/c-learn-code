@@ -1,0 +1,31 @@
+#include<stdio.h>
+int main()
+{
+    int arr[]={1,2,3,4,5,6,7,8,9,10};//这里的数组可以改变！！！有序
+    int k;
+    printf("请输入要找的数：");
+    scanf("%d",&k);
+    int sz=sizeof(arr)/sizeof(arr[0]);
+    int left=0;
+    int right=sz-1;
+    int mid=(left+right)/2;
+    while(left<=right)
+    {
+        if(arr[mid]==k)
+        {
+            printf("找到了，下标为：%d\n",mid);
+            break;
+        }
+        if(arr[mid]>k)
+        right=mid-1;
+        if(arr[mid]<k)
+        left=mid+1;
+        if(left==right)
+        {
+            printf("找不到，数不在该数组中\n");
+            break;
+        }
+        mid=(left+right)/2;
+    }
+    return 0;
+}
