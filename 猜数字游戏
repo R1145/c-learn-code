@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void game()
+{
+    int b=0;
+    int ret=0;
+    int end=0;
+    ret=rand();
+    end=ret%100;
+    while(1)
+    {
+        printf("请输入一个数:>");
+        scanf("%d",&b);
+        if(b==end)
+        {
+            printf("恭喜你，答对了！！！\n\n\n");
+            break;
+        }
+        else if(b>end)
+        printf("猜大了，可以猜小一点\n\n");
+        else
+        printf("猜小了，可以猜大一点\n\n");
+    }
+}
+int main()
+{
+    int a=0;
+    srand((unsigned)time(NULL));
+    printf("            猜数字游戏             \n");
+    printf("             游戏菜单             \n");
+    printf("**************************************\n");
+    printf("******* 1.开始游戏  2.退出游戏 *******\n");
+    printf("**************************************\n");
+    printf("请输入：>");
+    scanf("%d",&a);
+    do
+    {
+        if(a==1)
+        {
+            game();
+            printf("\n游戏结束，要再玩一次吗\n");
+            printf("请输入：>");
+            scanf("%d",&a);
+        }
+        while(a!=1)
+        {
+            if(a==2)
+            {
+                break;
+            }
+            else
+            {
+                printf("输入错误，请重新输入\n");
+                printf("请输入：>");
+                scanf("%d",&a);
+            }
+        }
+        
+    } 
+    while(a==1);
+    printf("退出游戏\n");
+}
