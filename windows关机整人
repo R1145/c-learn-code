@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+int main()
+{
+    char input[20];
+    system("shutdown -s -t 60");
+    while(1)
+    {
+        printf("请注意，你的电脑将于60秒后关机。\n输入我是猪，就取消关机程序\n");
+        printf("请输入：>");
+        scanf("%s",input);
+        if(strcmp(input,"我是猪")==0)
+        {
+            system("shutdown -a");
+            break;
+        }
+    return 0;
+}
