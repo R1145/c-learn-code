@@ -1,0 +1,185 @@
+int rows = 11;
+int cols = 11;
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+void displayboard(char board[rows][cols],int rows ,int cols)//打印棋盘
+{
+    int i=0;
+    int j=0;
+    printf("     ");
+    for(i=1;i<rows-1;i++)
+    {
+        printf("  %d  ",i);
+    }
+    printf("\n \n");
+    for(i=1;i<rows-1;i++)
+    {
+        printf("  %d  ",i);
+        for(j=1;j<cols-1;j++)
+        {
+            printf("  %c  ",board[i][j]);
+        }
+        printf("\n");
+        printf("   ");
+        printf("\n");
+    }
+}
+int get_mine_count(char find[rows][cols],int x, int y)//计算雷的数量
+{
+    //int count=0;
+    //int i=0;
+    //int j=0;
+    //for(i=x-1;i<=x+1;i++)
+    //{
+    //    for(j=y-1;j<=y+1;j++)
+    //    {
+    //        if(find[i][j]==1)
+    //        count++;
+    //    }
+    //}
+    //return count;
+    return find[x-1][y-1]+
+    find[x][y-1]+
+    find[x+1][y-1]+
+    find[x-1][y]+
+    find[x+1][y]+
+    find[x+1][y+1]+
+    find[x-1][y+1]+
+    find[x][y+1]+
+    8*'0';
+}
+void Continue(char in[rows][cols],char out[rows][cols],int x,int y)
+{
+    int count=get_mine_count(in,x,y);
+    out[x][y]=count+'0';
+    if(out[x][y]=='0')
+    {
+        int i=0;
+        int j=0;
+        for(i=x-1;i<=x+1;i++)
+        {
+            for(j=y-1;j<=y+1;j++)
+            {
+                if(x==i&&y==j)
+                {
+                    ;
+                }
+                else
+                {
+                    Continue(in,out,i,j);
+                }
+            }
+        }
+    }
+}
+void findmine(char in[rows][cols],char out[rows][cols],int rows,int cols)//扫雷
+{
+    int x=0;
+    int y=0;
+    while(1)
+    {
+        int win=0;
+        printf("请输入要扫的坐标：>");
+        scanf("%d%d",&x,&y);
+        if( x>=1 && x<=rows-2 && y>=1 && y<=cols-2 )//判断坐标合法性
+        {
+            if(in[x][y]=='1')
+            {
+                printf("你踩到雷了，游戏结束\n");
+                displayboard(in,rows,cols);
+                break;
+            }
+            else
+            {
+                Continue(in,out,x,y);
+                // int count=get_mine_count(in,x,y);
+                // out[x][y]=count+'0';
+                displayboard(out,rows,cols);
+                win++;
+                if(win==rows*cols-10)//更改雷的数量这里也要一起改，改成多少，这里减多少
+                {
+                    printf("恭喜你，扫雷成功\n");
+                    displayboard(in,rows,cols);
+                    return;
+                }
+            }
+        }
+        else
+        printf("输入坐标错误，请重新输入\n");
+    }
+}
+void setmine(char board[rows][cols],int rows ,int cols)//设置雷
+{
+    int count=10;//雷的数量
+    while(count)
+    {
+        int x=(rand()%(rows-2))+1;
+        int y=(rand()%(cols-2))+1;
+        if(board[x][y]=='0')
+        {
+            board[x][y]='1';
+            count--;
+        }
+    }
+}
+void initboard(char board[rows][cols],int rows ,int cols,char ch)//初始化棋盘
+{
+    int i=0;
+    int j=0;
+    for(i=0;i<rows;i++)
+    {
+        for(j=0;j<cols;j++)
+        {
+            board[i][j]=ch;
+        }
+    }
+}
+void game()//游戏主体
+{
+   printf("                         扫雷  \n");
+   char mine[rows][cols];
+   char show[rows][cols];
+   initboard(mine,rows,cols,'0');
+   initboard(show,rows,cols,'#');
+   displayboard(show,rows,cols);
+   setmine(mine,rows,cols);
+   //displayboard(mine,rows,cols);
+   findmine(mine,show,rows,cols);
+}
+void menu()//菜单
+{
+    printf("**************     扫雷     ************\n");
+    printf("***************************************\n");
+    printf("***********  1.play   2.exit  *********\n");
+    printf("***************************************\n");
+}
+void test()//选择页面
+{
+    srand((unsigned)time(NULL));
+    int input=0;
+    do
+    {
+        menu();
+        printf("请输入：>");
+        scanf("%d",&input);
+        switch(input)
+        {
+            case 1:
+                game();
+                printf("\n游戏结束，要再玩一局吗\n\n\n");
+                break;
+            case 0:
+                printf("\n退出游戏\n\n\n");
+                break;
+            default:
+                printf("\n输入错误，请重新输入\n\n\n");
+                break;
+        }
+    }while(input);
+}
+int main()//主函数
+{
+    test();
+    return 0;
+}
